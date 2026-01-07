@@ -12,6 +12,7 @@ import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
+import { createCollectionHiddenFn } from '../../utilities/collectionVisibility'
 
 import {
   MetaDescriptionField,
@@ -38,6 +39,7 @@ export const Pages: CollectionConfig<'pages'> = {
   },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
+    hidden: createCollectionHiddenFn('pages'),
     livePreview: {
       url: ({ data, req }) =>
         generatePreviewPath({

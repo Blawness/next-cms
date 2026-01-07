@@ -11,6 +11,7 @@ import { fileURLToPath } from 'url'
 import { anyone } from '../access/anyone'
 import { isAdminEditorOrAuthor } from '../access/isAdminEditorOrAuthor'
 import { isAdminOrEditor } from '../access/isAdminOrEditor'
+import { createCollectionHiddenFn } from '../utilities/collectionVisibility'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -23,6 +24,9 @@ export const Media: CollectionConfig = {
     delete: isAdminOrEditor,
     read: anyone,
     update: isAdminEditorOrAuthor,
+  },
+  admin: {
+    hidden: createCollectionHiddenFn('media'),
   },
   fields: [
     {

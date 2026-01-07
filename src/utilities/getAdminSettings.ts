@@ -1,7 +1,7 @@
-import type { AdminSettings as AdminSettingsType } from '@/payload-types'
+import type { AdminSetting } from '@/payload-types'
 
 // Cache for admin settings to avoid repeated database calls
-let settingsCache: AdminSettingsType | null = null
+let settingsCache: AdminSetting | null = null
 let cacheTimestamp: number = 0
 const CACHE_TTL = 5000 // 5 seconds cache
 
@@ -11,7 +11,7 @@ const CACHE_TTL = 5000 // 5 seconds cache
  */
 export async function getAdminSettings(
   payload: any,
-): Promise<AdminSettingsType | null> {
+): Promise<AdminSetting | null> {
   const now = Date.now()
 
   // Return cached settings if still valid
@@ -23,7 +23,7 @@ export async function getAdminSettings(
     const settings = await payload.findGlobal({
       slug: 'admin-settings',
     })
-    settingsCache = settings as AdminSettingsType
+    settingsCache = settings as AdminSetting
     cacheTimestamp = now
     return settingsCache
   } catch {
@@ -36,7 +36,7 @@ export async function getAdminSettings(
  * Check if a feature is enabled in admin settings
  */
 export function isFeatureEnabled(
-  settings: AdminSettingsType | null,
+  settings: AdminSetting | null,
   feature: 'pages' | 'posts' | 'categories' | 'media',
 ): boolean {
   if (!settings?.enabledFeatures) return true // Default to enabled

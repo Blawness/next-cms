@@ -18,6 +18,7 @@ import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
+import { createCollectionHiddenFn } from '../../utilities/collectionVisibility'
 
 import {
   MetaDescriptionField,
@@ -50,6 +51,7 @@ export const Posts: CollectionConfig<'posts'> = {
   },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
+    hidden: createCollectionHiddenFn('posts'),
     livePreview: {
       url: ({ data, req }) =>
         generatePreviewPath({

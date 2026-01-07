@@ -1,0 +1,140 @@
+/* PKP Content Studio - Blue Gradient Theme */
+
+/* Custom Login Branding */
+.before-login {
+  text-align: center;
+  padding: 24px 16px;
+  margin-bottom: 16px;
+}
+
+.before-login__logo {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 40px -10px rgba(14, 165, 233, 0.5);
+}
+
+.before-login__logo-icon {
+  font-size: 2.25rem;
+}
+
+.before-login__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: #0ea5e9;
+}
+
+.before-login__subtitle {
+  font-size: 0.8rem;
+  color: #707078;
+  margin: 0 0 20px;
+}
+
+.before-login__divider {
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  margin: 0 auto 20px;
+}
+
+.before-login__description {
+  font-size: 0.85rem;
+  color: #909098;
+  line-height: 1.5;
+  margin: 0 auto;
+  max-width: 260px;
+}
+
+/* Dashboard Welcome Banner */
+.before-dashboard {
+  background: rgba(14, 165, 233, 0.08);
+  border: 1px solid rgba(14, 165, 233, 0.2);
+  border-radius: 12px;
+  padding: 28px;
+  margin-bottom: 24px;
+}
+
+.before-dashboard__banner {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;
+  border-radius: 8px !important;
+  padding: 16px 20px !important;
+  margin-bottom: 24px !important;
+  border: none !important;
+}
+
+.before-dashboard__banner h4 {
+  margin: 0 !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  color: white !important;
+}
+
+.before-dashboard__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.before-dashboard__card {
+  background: rgba(14, 165, 233, 0.05);
+  border: 1px solid rgba(14, 165, 233, 0.15);
+  border-radius: 10px;
+  padding: 20px;
+  transition: all 0.2s ease;
+}
+
+.before-dashboard__card:hover {
+  border-color: rgba(14, 165, 233, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -8px rgba(14, 165, 233, 0.3);
+}
+
+.before-dashboard__card-icon {
+  font-size: 1.75rem;
+  margin-bottom: 10px;
+}
+
+.before-dashboard__card h5 {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.before-dashboard__card p {
+  margin: 0 0 14px;
+  font-size: 0.8rem;
+  color: #888;
+  line-height: 1.4;
+}
+
+.before-dashboard__card a {
+  font-size: 0.8rem;
+  color: #0ea5e9;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.before-dashboard__card a:hover {
+  color: #38bdf8;
+}
+
+.before-dashboard__tip {
+  background: rgba(14, 165, 233, 0.08);
+  border: 1px solid rgba(14, 165, 233, 0.15);
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 0.825rem;
+  color: #a0a0a8;
+}
+
+.before-dashboard__tip strong {
+  color: #0ea5e9;
+}

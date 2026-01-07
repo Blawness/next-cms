@@ -63,7 +63,10 @@ export default buildConfig({
     },
   }),
   collections: [Pages, Posts, Media, Categories, Users],
-  cors: [getServerSideURL()].filter(Boolean),
+  cors: [
+    getServerSideURL(),
+    ...(process.env.ALLOWED_ORIGINS?.split(',') || []),
+  ].filter(Boolean),
   globals: [Header, Footer],
   plugins,
   secret: process.env.PAYLOAD_SECRET,

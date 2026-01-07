@@ -1,5 +1,6 @@
 import type { GlobalConfig } from 'payload'
 import { isAdmin } from '../../access/isAdmin'
+import { revalidateAdminSettings } from './hooks/revalidateAdminSettings'
 
 export const AdminSettings: GlobalConfig = {
   slug: 'admin-settings',
@@ -11,13 +12,16 @@ export const AdminSettings: GlobalConfig = {
   admin: {
     group: 'Settings',
   },
+  hooks: {
+    afterChange: [revalidateAdminSettings],
+  },
   fields: [
     {
       name: 'enabledFeatures',
       type: 'group',
       label: 'Enabled Features',
       admin: {
-        description: 'Toggle visibility of collections in admin panel',
+        description: 'Toggle visibility of collections in admin panel dashboard',
       },
       fields: [
         {
@@ -26,7 +30,7 @@ export const AdminSettings: GlobalConfig = {
           label: 'Pages',
           defaultValue: true,
           admin: {
-            description: 'Show Pages collection in sidebar',
+            description: 'Show Pages in dashboard quick links',
           },
         },
         {
@@ -35,7 +39,7 @@ export const AdminSettings: GlobalConfig = {
           label: 'Posts',
           defaultValue: true,
           admin: {
-            description: 'Show Posts collection in sidebar',
+            description: 'Show Posts in dashboard quick links',
           },
         },
         {
@@ -44,7 +48,7 @@ export const AdminSettings: GlobalConfig = {
           label: 'Categories',
           defaultValue: true,
           admin: {
-            description: 'Show Categories collection in sidebar',
+            description: 'Show Categories in dashboard quick links',
           },
         },
         {
@@ -53,7 +57,7 @@ export const AdminSettings: GlobalConfig = {
           label: 'Media',
           defaultValue: true,
           admin: {
-            description: 'Show Media collection in sidebar',
+            description: 'Show Media in dashboard quick links',
           },
         },
       ],
@@ -109,3 +113,4 @@ export const AdminSettings: GlobalConfig = {
     },
   ],
 }
+

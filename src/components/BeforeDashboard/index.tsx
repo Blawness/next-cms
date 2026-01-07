@@ -1,13 +1,30 @@
 'use client'
 
 import { Banner } from '@payloadcms/ui/elements/Banner'
-import React from 'react'
-import { useConfig } from '@payloadcms/ui'
+import React, { useEffect, useState } from 'react'
 
 const baseClass = 'before-dashboard'
 
+interface AdminSettings {
+  enabledFeatures?: {
+    pages?: boolean | null
+    posts?: boolean | null
+    categories?: boolean | null
+    media?: boolean | null
+  }
+  branding?: {
+    siteName?: string | null
+    adminDescription?: string | null
+  }
+  dashboard?: {
+    showWelcome?: boolean | null
+    welcomeTitle?: string | null
+    welcomeMessage?: string | null
+  }
+}
+
 interface QuickLinkCard {
-  slug: string
+  slug: 'pages' | 'posts' | 'categories' | 'media'
   icon: string
   title: string
   description: string
@@ -41,19 +58,58 @@ const collectionCards: QuickLinkCard[] = [
 ]
 
 const BeforeDashboard: React.FC = () => {
-  const { config } = useConfig()
-  const collections = config?.collections || []
+  const [settings, setSettings] = useState<AdminSettings | null>(null)
+  const [loading, setLoading] = useState(true)
 
-  // Filter cards to only show collections that exist in config
-  const visibleCards = collectionCards.filter((card) =>
-    collections.some((col) => col.slug === card.slug),
-  )
+  useEffect(() => {
+    // Fetch admin settings from API
+    const fetchSettings = async () => {
+      try {
+        const response = await fetch('/api/globals/admin-settings')
+        if (response.ok) {
+          const data = await response.json()
+          setSettings(data)
+        }
+      } catch (error) {
+        console.error('Failed to fetch admin settings:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchSettings()
+  }, [])
+
+  // Filter cards based on enabled features from settings
+  const visibleCards = collectionCards.filter((card) => {
+    if (!settings?.enabledFeatures) return true // Show all if no settings
+    const isEnabled = settings.enabledFeatures[card.slug]
+    return isEnabled !== false // Show if true or null/undefined
+  })
+
+  // Get custom content from settings
+  const welcomeTitle = settings?.dashboard?.welcomeTitle || 'Selamat Datang di CMS Admin'
+  const welcomeMessage = settings?.dashboard?.welcomeMessage
+  const showWelcome = settings?.dashboard?.showWelcome !== false
+
+  if (loading) {
+    return (
+      <div className={baseClass}>
+        <Banner className={`${baseClass}__banner`} type="default">
+          <h4>⏳ Loading dashboard...</h4>
+        </Banner>
+      </div>
+    )
+  }
 
   return (
     <div className={baseClass}>
-      <Banner className={`${baseClass}__banner`} type="success">
-        <h4>👋 Selamat Datang di CMS Admin</h4>
-      </Banner>
+      {showWelcome && (
+        <Banner className={`${baseClass}__banner`} type="success">
+          <h4>👋 {welcomeTitle}</h4>
+          {welcomeMessage && <p style={{ margin: '8px 0 0 0' }}>{welcomeMessage}</p>}
+        </Banner>
+      )}
 
       <div className={`${baseClass}__cards`}>
         {visibleCards.map((card) => (
@@ -65,6 +121,13 @@ const BeforeDashboard: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {visibleCards.length === 0 && (
+        <div className={`${baseClass}__tip`}>
+          <strong>ℹ️ Info:</strong> Tidak ada collection yang diaktifkan. Pergi ke{' '}
+          <a href="/admin/globals/admin-settings">Admin Settings</a> untuk mengaktifkan fitur.
+        </div>
+      )}
 
       <div className={`${baseClass}__tip`}>
         <strong>⚙️ Admin Settings:</strong> Gunakan menu{' '}

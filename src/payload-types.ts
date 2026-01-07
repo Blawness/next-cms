@@ -1701,23 +1701,23 @@ export interface Footer {
 export interface AdminSetting {
   id: number;
   /**
-   * Toggle visibility of collections in admin panel
+   * Toggle visibility of collections in admin panel dashboard
    */
   enabledFeatures?: {
     /**
-     * Show Pages collection in sidebar
+     * Show Pages in dashboard quick links
      */
     pages?: boolean | null;
     /**
-     * Show Posts collection in sidebar
+     * Show Posts in dashboard quick links
      */
     posts?: boolean | null;
     /**
-     * Show Categories collection in sidebar
+     * Show Categories in dashboard quick links
      */
     categories?: boolean | null;
     /**
-     * Show Media collection in sidebar
+     * Show Media in dashboard quick links
      */
     media?: boolean | null;
   };

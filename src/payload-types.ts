@@ -112,10 +112,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    'admin-settings': AdminSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    'admin-settings': AdminSettingsSelect<false> | AdminSettingsSelect<true>;
   };
   locale: null;
   user: User & {
@@ -1694,6 +1696,51 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "admin-settings".
+ */
+export interface AdminSetting {
+  id: number;
+  /**
+   * Toggle visibility of collections in admin panel
+   */
+  enabledFeatures?: {
+    /**
+     * Show Pages collection in sidebar
+     */
+    pages?: boolean | null;
+    /**
+     * Show Posts collection in sidebar
+     */
+    posts?: boolean | null;
+    /**
+     * Show Categories collection in sidebar
+     */
+    categories?: boolean | null;
+    /**
+     * Show Media collection in sidebar
+     */
+    media?: boolean | null;
+  };
+  branding?: {
+    /**
+     * Name displayed in admin panel meta title
+     */
+    siteName?: string | null;
+    /**
+     * Description shown on dashboard
+     */
+    adminDescription?: string | null;
+  };
+  dashboard?: {
+    showWelcome?: boolean | null;
+    welcomeTitle?: string | null;
+    welcomeMessage?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
@@ -1733,6 +1780,36 @@ export interface FooterSelect<T extends boolean = true> {
               label?: T;
             };
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "admin-settings_select".
+ */
+export interface AdminSettingsSelect<T extends boolean = true> {
+  enabledFeatures?:
+    | T
+    | {
+        pages?: T;
+        posts?: T;
+        categories?: T;
+        media?: T;
+      };
+  branding?:
+    | T
+    | {
+        siteName?: T;
+        adminDescription?: T;
+      };
+  dashboard?:
+    | T
+    | {
+        showWelcome?: T;
+        welcomeTitle?: T;
+        welcomeMessage?: T;
       };
   updatedAt?: T;
   createdAt?: T;

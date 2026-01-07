@@ -11,6 +11,7 @@ import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
+import { AdminSettings } from './globals/AdminSettings/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -54,6 +55,9 @@ export default buildConfig({
         },
       ],
     },
+    meta: {
+      titleSuffix: ' | CMS Admin',
+    },
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
@@ -67,7 +71,7 @@ export default buildConfig({
     getServerSideURL(),
     ...(process.env.ALLOWED_ORIGINS?.split(',') || []),
   ].filter(Boolean),
-  globals: [Header, Footer],
+  globals: [Header, Footer, AdminSettings],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
   sharp,
